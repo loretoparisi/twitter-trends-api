@@ -13,5 +13,5 @@ export TWITTER_ACCESS_TOKEN_SECRET='**************'
 
 You can then run the api
 ```
-node api
+node examples/api.js
 ```
