@@ -13,5 +13,8 @@ export TWITTER_ACCESS_TOKEN_SECRET='**************'
 
 You can then run the api
 ```
+git clone https://github.com/loretoparisi/twitter-trends-api.git
+cd twitter-trends-api/
+npm install
 node examples/api.js
 ```
