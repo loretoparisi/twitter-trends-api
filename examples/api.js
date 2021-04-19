@@ -13,7 +13,16 @@ trends.getPlaces()
     .then(data => {
         console.log(JSON.stringify(data));
         fs.writeFileSync('./trends_places.json', JSON.stringify(data, null, 2));
-
+        // get a place trends
+        return trends.getTopics({
+            // Yahoo! woeid: the location from where to return trending information for from.
+            id: '1',
+            // Setting this equal to hashtags will remove all hashtags from the trends list.
+            exclude: ''
+        });
+    })
+    .then(data => {
+        console.log(JSON.stringify(data, null, 2));
     })
     .catch(error => {
         console.error(error);
