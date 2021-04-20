@@ -7,7 +7,8 @@ const TwitterTrends = require('../lib/index');
 const TwitterTrendsUtil = require('../lib/util');
 const fs = require('fs');
 
-const countryCode = 'IT';
+var countryCode = 'IT', languageCode = 'it';
+
 // twitter trends instance
 const twitterTrends = new TwitterTrends({});
 
@@ -36,7 +37,7 @@ twitterTrends.getPlaces({})
     .then(data => {
         console.log("TOP [%d] TOPICS WORDLWIDE\n",data.trends.length, JSON.stringify(data, null, 2));
         //  get the top  trending topics by ISO 3166-2 Country Code (e.g. US ) and place type
-        return twitterTrends.getTopicsByCountryCode({
+        return twitterTrends.getTopicsByCountry({
             countryCode: countryCode,
             // filter by place of type 'Town'
             placeType: TwitterTrends.PLACE_TYPE_TOWN
@@ -48,7 +49,7 @@ twitterTrends.getPlaces({})
         data.places.forEach(place => {
             console.log("PLACE [%s] TOPIC SAMPLE\n",place.locations[0].name, TwitterTrendsUtil.randomElement(place.trends));
         });
-        return twitterTrends.getTopicsByCountryCode({
+        return twitterTrends.getTopicsByCountry({
             countryCode: countryCode,
             // filter by place of type 'Country'
             placeType: TwitterTrends.PLACE_TYPE_COUNTRY
@@ -56,6 +57,17 @@ twitterTrends.getPlaces({})
     })
     .then(data => {
         console.log("Found [%d] PLACES of type [%s] in [%s]\n", data.places.length, TwitterTrends.PLACE_TYPE_COUNTRY, countryCode);
+        data.places.forEach(place => {
+            console.log("PLACE [%s] TOPIC SAMPLE\n",place.locations[0].name, TwitterTrendsUtil.randomElement(place.trends));
+        });
+        return twitterTrends.getTopicsByLanguage({
+            languageCode: languageCode,
+            // filter by place of type 'Country'
+            placeType: TwitterTrends.PLACE_TYPE_TOWN
+        });
+    })
+    .then(data => {
+        console.log("Found [%d] PLACES of type [%s] for language [%s]\n", data.places.length, TwitterTrends.PLACE_TYPE_COUNTRY, languageCode);
         data.places.forEach(place => {
             console.log("PLACE [%s] TOPIC SAMPLE\n",place.locations[0].name, TwitterTrendsUtil.randomElement(place.trends));
         });

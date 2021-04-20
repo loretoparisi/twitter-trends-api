@@ -22,14 +22,21 @@ node examples/api.js
 ## APIs
 `TwitterTrends` exposes the following apis
 
-- `getPlaces`, Get Local Trends Places
-- `getTopics`, Get the top 50 trending topics for a specific location
-- `getTopicsByCountryCode`, To get the top trending topics by ISO 3166-2 Country Code (e.g. US ) and place type (`Town` or `Country`)
+- `getPlaces`, Get Local Trends Places.
+- `getTopics`, Get the top 50 trending topics for a specific location or worldwide.
+- `getTopicsByCountry`, To get the top trending topics by ISO 3166-2 Country Code (e.g. `US` ) and place type (`Town` or `Country`).
+- `getTopicsByLanguage`, To get the top trending topics by ISO 639-1 Language Code (e.g. `en` ) and place type (`Town` or `Country`).
 
 ## Examples
+Creare a new `TwitterTrends` instance with in memory cache `expire` of 5 minutes.
+```javascript
+const twitterTrends = new TwitterTrends({ expire: (1000 * 60 * 5) });
+```
+
 Get Local Trends Places in Italy (`IT`)
 ```javascript
 twitterTrends.getPlaces({
+    // ISO 3166-2 Country Code
     countryCode: 'IT'
 });
 ```
@@ -46,15 +53,14 @@ twitterTrends.getTopics({
 ```
 Get the top trending topics in Italy (`IT`) for `Town` places.
 ```javascript
-twitterTrends.getTopicsByCountryCode({
-    // filter trends places by ISO 3166-2 Country Code
+twitterTrends.getTopicsByCountry({
+    // ISO 3166-2 Country Code
     countryCode: 'IT',
     // filter by place of type 'Town'
     placeType: TwitterTrends.PLACE_TYPE_TOWN
 });
 ```
-
-Get the top trending topics in Italy (`ES`) for place type `Country` (so Spain).
+Get the top trending topics in Spain (`ES`) for place type `Country` (so Spain).
 ```javascript
 twitterTrends.getTopicsByCountryCode({
     // filter trends places by ISO 3166-2 Country Code
@@ -63,3 +69,28 @@ twitterTrends.getTopicsByCountryCode({
     placeType: TwitterTrends.PLACE_TYPE_COUNTRY
 });
 ```
+Get the top trending topics in italian (`it`) for `Town` places.
+```javascript
+twitterTrends.getTopicsByLanguage({
+    // ISO 639-1 Language Code
+    languageCode: 'it',
+    // filter by place of type 'Town'
+    placeType: TwitterTrends.PLACE_TYPE_TOWN
+});
+```
+
+## Errors
+- `Rate limit exceeded`, indicates that api rate limit has been reached. Please check [Twitter API v2 rate limits](https://developer.twitter.com/en/docs/twitter-api/rate-limits#v2-limits)
+```json
+{
+	"errors": [{
+		"message": "Rate limit exceeded",
+		"code": 88
+	}]
+}
+```
+
+## Acknowledgments
+`TwitterTrends` uses the following libraries
+- [twitter-api-client](https://github.com/FeedHive/twitter-api-client)
+- [simple-mem-cache](https://github.com/fsoft72/simple-mem-cache)
