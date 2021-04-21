@@ -1,6 +1,14 @@
 # twitter-trends-api
 Twitter Trends API Exampes
 
+[![NPM Version](https://img.shields.io/npm/v/twittertrendsapi.js)](https://img.shields.io/npm/v/twittertrendsapi.js)
+
+## How to install
+
+```
+npm i twittertrendsapi.js
+```
+
 ## How to run
 Please set your Twitter api keys env
 
