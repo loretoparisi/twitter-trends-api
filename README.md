@@ -28,9 +28,9 @@ node examples/api.js
 - `getTopicsByLanguage`, To get the top trending topics by ISO 639-1 Language Code (e.g. `en` ) and place type (`Town` or `Country`).
 
 ## Examples
-Creare a new `TwitterTrends` instance with in memory cache `expire` of 5 minutes.
+Creare a new `TwitterTrends` instance with in memory cache `expire` parameter. We suggest at least `15` minutes of cache expiration at minimum, due to Twitter API rate limits that has a 15-minute window (see section Errors).
 ```javascript
-const twitterTrends = new TwitterTrends({ expire: (1000 * 60 * 5) });
+const twitterTrends = new TwitterTrends({ expire: (1000 * 60 * 15) });
 ```
 
 Get Local Trends Places in Italy (`IT`)
