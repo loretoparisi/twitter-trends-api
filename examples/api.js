@@ -62,12 +62,12 @@ twitterTrends.getPlaces({})
         });
         return twitterTrends.getTopicsByLanguage({
             languageCode: languageCode,
-            // filter by place of type 'Country'
+            // filter by place of type 'Town'
             placeType: TwitterTrends.PLACE_TYPE_TOWN
         });
     })
     .then(data => {
-        console.log("Found [%d] PLACES of type [%s] for language [%s]\n", data.places.length, TwitterTrends.PLACE_TYPE_COUNTRY, languageCode);
+        console.log("Found [%d] PLACES of type [%s] for language [%s]\n", data.places.length, TwitterTrends.PLACE_TYPE_TOWN, languageCode);
         data.places.forEach(place => {
             console.log("PLACE [%s] TOPIC SAMPLE\n",place.locations[0].name, TwitterTrendsUtil.randomElement(place.trends));
         });
